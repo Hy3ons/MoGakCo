@@ -1,69 +1,148 @@
-<img align="right" width="150" alt="logo" src="https://user-images.githubusercontent.com/5889006/190859553-5b229b4f-c476-4cbd-928f-890f5265ca4c.png">
+## 🎯 프로젝트 소개
 
-# Hugo Theme Stack Starter Template
+이 블로그는 **앞으로의 모든 모각코** 학습 동안의 여정을 체계적으로 기록하기 위해 만들어졌습니다. 기존 알고리즘 중심 블로그와는 별도로, 다양한 기술 스택 학습과 프로젝트 개발 과정을 문서화합니다.
 
-This is a quick start template for [Hugo theme Stack](https://github.com/CaiJimmy/hugo-theme-stack). It uses [Hugo modules](https://gohugo.io/hugo-modules/) feature to load the theme.
+기존에는 알고리즘 풀이 중심의 블로그만 운영했지만, 모각코에서는 더 폭넓은 활동이 이루어지므로 별도의 전용 공간이 필요하다고 판단하여 개설하게 되었습니다.
 
-It comes with a basic theme structure and configuration. GitHub action has been set up to deploy the theme to a public GitHub page automatically. Also, there's a cron job to update the theme automatically everyday.
+## 🛠 기술 스택
 
-## Get started
+### 정적 사이트 생성
 
-1. Click *Use this template*, and create your repository as `<username>.github.io` on GitHub.
-![Step 1](https://user-images.githubusercontent.com/5889006/156916624-20b2a784-f3a9-4718-aa5f-ce2a436b241f.png)
+- **Hugo**: Go 기반 정적 사이트 생성기
+- **Hugo Theme Stack**: 깔끔하고 현대적인 블로그 테마
+- **Markdown**: 콘텐츠 작성 마크업
 
-2. Once the repository is created, create a GitHub codespace associated with it.
-![Create codespace](https://user-images.githubusercontent.com/5889006/156916672-43b7b6e9-4ffb-4704-b4ba-d5ca40ffcae7.png)
 
-3. And voila! You're ready to go. The codespace has been configured with the latest version of Hugo extended, just run `hugo server` in the terminal and see your new site in action.
+### 배포 및 호스팅
 
-4. Check `config` folder for the configuration files. You can edit them to suit your needs. Make sure to update the `baseurl` property in `config/_default/config.toml` to your site's URL.
+- **GitHub Pages**: 정적 사이트 호스팅
+- **GitHub Actions**: 자동 빌드 및 배포 파이프라인
+- **Custom Domain**: 선택적 도메인 연결 지원
 
-5. Open Settings -> Pages. Change the build branch from `master` to `gh-pages`.
-![Build](https://github.com/namanh11611/hugo-theme-stack-starter/assets/16586200/12c763cd-bead-4923-b610-8788f388fcb5)
 
-6. Once you're done editing the site, just commit it and push it. GitHub action will deploy the site automatically to GitHub page asociated with the repository.
-![GitHub action](https://user-images.githubusercontent.com/5889006/156916881-90b8bb9b-1925-4e60-9d7a-8026cda729bf.png)
+### 개발 도구
+
+- **Git**: 버전 관리
+- **VS Code**: Markdown All in One extension 활용
+- **Hugo CLI**: 로컬 개발 서버
+
+
+## 🚀 시작하기
+
+### 로컬 개발 환경 설정
+
+1. **저장소 클론**
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+```
+
+2. **Hugo 설치** (macOS)
+```bash
+brew install hugo
+```
+
+3. **로컬 서버 실행**
+```bash
+hugo serve -D
+```
+
+4. **브라우저에서 확인**
+```
+http://localhost:1313
+```
+
+## ⚙️ 배포 과정
+
+### GitHub Actions 자동 배포
+
+1. **커밋 \& 푸시**
+```bash
+git add .
+git commit -m "Add new post: 제목"
+git push origin main
+```
+
+2. **자동 빌드**: GitHub Actions가 Hugo 빌드 실행
+3. **배포**: `gh-pages` 브랜치에 정적 파일 배포
+4. **공개**: GitHub Pages를 통해 자동 배포
+
+### 배포 워크플로우
+
+```yaml
+# .github/workflows/hugo.yml
+name: Deploy Hugo site to Pages
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+      - name: Build
+        run: hugo --minify
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+```
+
+
+## 📝 글쓰기 가이드
+
+### Front Matter 예시
+
+```yaml
+---
+title: "게시물 제목"
+description: "게시물 설명"
+slug: "url-friendly-slug"
+date: 2025-06-21T16:05:00+09:00
+author: "황현석"
+categories: ["카테고리"]
+tags: ["태그1", "태그2"]
+weight: 1
+---
+```
+
+
+### 마크다운 작성 팁
+
+- **VS Code Markdown All in One**: 실시간 미리보기
+- **이미지**: `static/img/` 폴더에 저장 후 `/img/filename.jpg`로 참조
+- **코드 블록**: 언어별 syntax highlighting 지원
+- **수식**: LaTeX 문법 지원 (`$...$`, `$...$`)
+
+
+## 🎨 커스터마이징
+
+### 테마 설정
+
+- `config.toml`에서 사이트 전체 설정 관리
+- 색상, 폰트, 레이아웃 등 Stack 테마 옵션 활용
+
+
+### 카테고리별 스타일링
+
+```yaml
+# content/categories/개발/_index.md
+---
+title: 개발
+description: 개발 관련 포스팅
+style:
+    background: "#e63946"
+    color: "#fff"
+---
+```
+
+## 📄 라이선스
+
+이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
+
+## 🤝 기여하기
+
+개인 학습 블로그이지만, 오타나 개선사항이 있다면 이슈를 통해 알려주세요!
 
 ---
-
-In case you don't want to use GitHub codespace, you can also run this template in your local machine. **You need to install Git, Go and Hugo extended locally.**
-
-## Update theme manually
-
-Run:
-
-```bash
-hugo mod get -u github.com/CaiJimmy/hugo-theme-stack/v3
-hugo mod tidy
-```
-
-> This starter template has been configured with `v3` version of theme. Due to the limitation of Go module, once the `v4` or up version of theme is released, you need to update the theme manually. (Modifying `config/module.toml` file)
-
-## Deploy to another static page hostings
-
-If you want to build this site using another static page hosting, you need to make sure they have Go installed in the machine. 
-
-<details>
-  <summary>Vercel</summary>
-  
-You need to overwrite build command to install manually Go:
-
-```
-amazon-linux-extras install golang1.11 && hugo --gc --minify
-```
-
-![](https://user-images.githubusercontent.com/5889006/156917172-01e4d418-3469-4ffb-97e4-a905d28b8424.png)
-
-If you are using Node.js 20, you need to overwrite the install command to install manually Go:
-
-```
-dnf install -y golang
-```
-
-![image](https://github.com/zhi-yi-huang/hugo-theme-stack-starter/assets/83860323/777c1109-dfc8-4893-9db7-1305ec027cf5)
-
-
-Make sure also to specify Hugo version in the environment variable `HUGO_VERSION` (Use the latest version of Hugo extended):
-
-![Environment variable](https://user-images.githubusercontent.com/5889006/156917212-afb7c70d-ab85-480f-8288-b15781a462c0.png)
-</details>
