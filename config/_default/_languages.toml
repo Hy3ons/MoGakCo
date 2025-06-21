@@ -1,6 +1,12 @@
 # Rename this file to languages.toml to enable multilingual support
+[ko]
+languageName = "한국어"
+languagedirection = "ltr"
+title = "2025_하계_모각코"
+weight = 1
+
 [en]
 languageName = "English"
 languagedirection = "ltr"
-title = "Example Site"
-weight = 1
+title = "Academic Blog"
+weight = 2
