@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Spring on 2025-하계-모각코</title><link>https://hy3ons.github.io/MoGakCo/categories/spring/</link><description>Recent content in Spring on 2025-하계-모각코</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 14 Jul 2025 20:45:00 +0900</lastBuildDate><atom:link href="https://hy3ons.github.io/MoGakCo/categories/spring/index.xml" rel="self" type="application/rss+xml"/><item><title>하계 모각코 01</title><link>https://hy3ons.github.io/MoGakCo/p/2025-01-mogakco-1/</link><pubDate>Mon, 14 Jul 2025 20:45:00 +0900</pubDate><guid>https://hy3ons.github.io/MoGakCo/p/2025-01-mogakco-1/</guid><description>&lt;img src="https://hy3ons.github.io/MoGakCo/p/2025-01-mogakco-1/cover.jpg" alt="Featured image of post 하계 모각코 01" />&lt;h1 id="하계-모각코-01---목표">하계 모각코 01 - 목표
+&lt;/h1>&lt;p>이번 모각코 시간에는 유데미 강의를 들으며, Spring Boot와 JPA, Hibernate, Spring JDBC 등 다양한 주제를 공부할 예정입니다.&lt;br>
+특히, 프로덕션 환경 배포 준비, Actuator, Spring MVC, JPA와 Hibernate, H2 콘솔, Spring JDBC 등 여러 내용을 주제로 하는 영상을 시청 할 예정입니다.&lt;/p>
+&lt;p>저는 모각코 시간에만 공부하는 것이 아니다 보니, 그때그때 관심사나 공부의 진도, 필요에 따라 주제가 달라질 수 있습니다.&lt;br>
+이번 시간에는 아래와 같은 강의들을 목표로 삼고, 각 단계별로 짧게라도 정리해보려 합니다.&lt;/p>
+&lt;h2 id="오늘의-목표-강의-목록">오늘의 목표 강의 목록
+&lt;/h2>&lt;ol>
+&lt;li>Spring Boot로 프로덕션 환경 배포 준비하기 (Embedded Server, Actuator)&lt;/li>
+&lt;li>Spring Boot, Spring, Spring MVC 이해하기&lt;/li>
+&lt;li>Spring Boot 시작하기 - 복습&lt;/li>
+&lt;li>JPA와 Hibernate 시작하기 및 새 프로젝트 설정&lt;/li>
+&lt;li>H2 콘솔 실행 및 과정 테이블 생성&lt;/li>
+&lt;li>Spring JDBC 시작 및 데이터 삽입/삭제/쿼리 실습&lt;/li>
+&lt;li>JPA 실습&lt;/li>
+&lt;/ol>
+&lt;p>짧은 시간 동안 여러 주제를 다루겠지만, 각 단계별로 핵심만 정리해보는 것이 오늘의 목표입니다.&lt;/p>
+&lt;h1 id="하계-모각코-01---결과">하계 모각코 01 - 결과
+&lt;/h1>&lt;h2 id="1-maven을-이용한-빌드와-실행">1. Maven을 이용한 빌드와 실행
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>Maven 명령어 활용법&lt;/strong>
+&lt;ul>
+&lt;li>&lt;code>mvn clean&lt;/code> : 기존 빌드 산출물(클래스, jar 등)을 삭제&lt;/li>
+&lt;li>&lt;code>mvn install&lt;/code> : 컴파일 → 테스트 → 패키징 → 로컬 Maven 저장소에 배포&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Spring Boot 실행&lt;/strong>
+&lt;ul>
+&lt;li>빌드된 &lt;code>.jar&lt;/code> 파일을 커맨드라인에서 실행 가능&lt;/li>
+&lt;li>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">java -jar target/myapp.jar
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-spring-boot-actuator를-통한-모니터링">2. Spring Boot Actuator를 통한 모니터링
+&lt;/h2>&lt;ul>
+&lt;li>Spring Boot Actuator는 애플리케이션 상태, 메트릭, 헬스 체크 등 다양한 모니터링 기능을 제공합니다.&lt;/li>
+&lt;li>주요 엔드포인트 예시
+&lt;ul>
+&lt;li>&lt;code>/actuator/health&lt;/code> : 서비스 상태 확인&lt;/li>
+&lt;li>&lt;code>/actuator/metrics&lt;/code> : 메트릭 정보 제공&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>보안 설정 필수 (민감 정보 노출 방지)&lt;/li>
+&lt;li>actuator 엔드포인트 노출 설정 (기본은 제한적임)&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-properties" data-lang="properties">&lt;span class="line">&lt;span class="cl">&lt;span class="na">management.endpoints.web.exposure.include&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">health,metrics,info&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="3-db-연동-및-sql-활용">3. DB 연동 및 SQL 활용
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>메모리 기반 DB 사용&lt;/strong>
+&lt;ul>
+&lt;li>H2 같은 인메모리 DB로 빠른 개발과 테스트 가능, 강의영상에는 H2 SQL을 사용해서, 실습하였다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>JDBC vs Spring JDBC vs JPA 비교&lt;/strong>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>구분&lt;/th>
+&lt;th>특징&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>JDBC&lt;/td>
+&lt;td>순수 자바 DB 연동, SQL 직접 작성, 번거로움&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Spring JDBC&lt;/td>
+&lt;td>JDBC API 래핑, 예외 변환 및 편의 메서드 제공, SQL 직접 작성해야한다ㅓ&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>JPA&lt;/td>
+&lt;td>객체와 테이블 매핑, ORM 제공, 복잡한 DB 작업 간결화&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="4-spring-data-jpa-기본-사용법">4. Spring Data JPA 기본 사용법
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;code>JpaRepository&lt;/code> 인터페이스 상속만으로 CRUD 자동 구현해준다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Spring Boot가 런타임 시점에 &lt;strong>인터페이스 구현체(프록시)를 생성하여 Bean으로 등록&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>메서드 이름만으로 쿼리 자동 생성 가능&lt;br>
+예) &lt;code>findByName&lt;/code>, &lt;code>findByCreatedAtAfter&lt;/code> 등&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>직접 쿼리를 작성하고 싶으면 &lt;code>@Query&lt;/code> 어노테이션을 사용할 수 있다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">interface&lt;/span> &lt;span class="nc">CourseRepository&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">extends&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">JpaRepository&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Course&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Long&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">// JPQL 직접 작성&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Query&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;SELECT c FROM Course c WHERE c.name = :name&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Course&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">findByNameCustom&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nd">@Param&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">// 네이티브 쿼리 사용 (nativeQuery=true)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Query&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;SELECT * FROM course WHERE created_at &amp;gt; :date&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">nativeQuery&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Course&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">findRecentCoursesNative&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nd">@Param&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;date&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">LocalDate&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">date&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;h2 id="5-복잡한-로직-확장-방법">5. 복잡한 로직 확장 방법
+&lt;/h2>&lt;h3 id="51-custom-repository-구현">5.1 Custom Repository 구현
+&lt;/h3>&lt;ul>
+&lt;li>복잡한 쿼리나 동적 쿼리 작성 시 별도의 커스텀 인터페이스와 구현체 작성 필요&lt;/li>
+&lt;li>예시
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">interface&lt;/span> &lt;span class="nc">CourseCustomRepository&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Course&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">findRecentCourses&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nd">@Repository&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">CourseCustomRepositoryImpl&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">implements&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">CourseCustomRepository&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@PersistenceContext&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">EntityManager&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">em&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Course&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">findRecentCourses&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">// JPQL 직접 작성&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">em&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">createQuery&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;SELECT c FROM Course c WHERE c.createdAt &amp;gt; :date&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Course&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">class&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setParameter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;date&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">LocalDate&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">now&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="na">minusDays&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">7&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getResultList&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">interface&lt;/span> &lt;span class="nc">CourseRepository&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">extends&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">JpaRepository&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Course&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Long&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">CourseCustomRepository&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;h2 id="6-entitymanager와-persistencecontext">6. EntityManager와 &lt;code>@PersistenceContext&lt;/code>
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>EntityManager는 JPA의 핵심으로,&lt;br>
+영속성 컨텍스트(1차 캐시)와 트랜잭션 상태를 관리하는&lt;br>
+&lt;strong>상태가 있는 객체&lt;/strong>입니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>@PersistenceContext&lt;/code>를 사용해 주입하며,&lt;br>
+내부적으로는 트랜잭션마다 별도의 EntityManager 인스턴스를&lt;br>
+&lt;strong>프록시를 통해 트랜잭션 컨텍스트에 맞게 연결해줍니다.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>직접 싱글톤 Bean으로 쓰면 상태 공유로 인한&lt;br>
+&lt;strong>동시성 문제와 상태 꼬임이 발생할 수 있으니 주의해야 합니다.&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>따라서, @AutoWired를 사용하면 안 됩니다.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="7-hibernate와-jpa">7. Hibernate와 JPA
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>JPA&lt;/strong>는 Java ORM의 표준 인터페이스(스펙)입니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Hibernate&lt;/strong>는 JPA 스펙을 구현한&lt;br>
+가장 널리 쓰이는 ORM 구현체(라이브러리)입니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Spring Boot는 기본적으로 Hibernate를&lt;br>
+JPA 구현체로 사용하여 ORM 기능을 제공합니다.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="강의-외-추가적인-공부--다중-데이터소스-관리">강의 외 추가적인 공부 : 다중 데이터소스 관리
+&lt;/h1>&lt;p>하나의 Spring Boot 애플리케이션에서 여러 개의 데이터베이스를 사용하고,&lt;br>
+각 데이터베이스에 연결된 JPA Repository를 분리하고 싶을 때,&lt;br>
+멀티 데이터소스 설정이 필요합니다.&lt;/p>
+&lt;h2 id="1-멀티-데이터소스-설정-개요">1. 멀티 데이터소스 설정 개요
+&lt;/h2>&lt;ul>
+&lt;li>각 데이터베이스별로 &lt;code>DataSource&lt;/code> 빈을 생성&lt;/li>
+&lt;li>각각에 맞는 &lt;code>EntityManagerFactory&lt;/code> 빈 생성&lt;/li>
+&lt;li>&lt;code>TransactionManager&lt;/code>도 데이터소스별로 분리&lt;/li>
+&lt;li>&lt;code>@EnableJpaRepositories&lt;/code>를 이용해 Repository 패키지별로 연결 분리&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-각각의-db-설정-primarydatasourceconfigjava">2. 각각의 DB 설정 (PrimaryDataSourceConfig.java)
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="nd">@Configuration&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// 이 클래스는 Spring 설정 클래스임을 나타냄&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nd">@EnableTransactionManagement&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// @Transactional 애노테이션 기반의 트랜잭션 기능을 활성화함&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nd">@EnableJpaRepositories&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">basePackages&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;com.example.primaryRepo&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// 이 경로 하위에 있는 Repository 인터페이스들이 이 데이터소스를 사용하도록 설정&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">entityManagerFactoryRef&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;primaryEntityManagerFactory&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// 사용할 EntityManagerFactory Bean 이름&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">transactionManagerRef&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;primaryTransactionManager&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// 사용할 트랜잭션 매니저 Bean 이름&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">PrimaryDataSourceConfig&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * primaryDataSource: 첫 번째 데이터베이스와 연결할 DataSource를 생성.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * application.properties 파일에서 &amp;#39;spring.datasource.primary&amp;#39; 접두어로 시작하는 설정을 읽어들임.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * 예: spring.datasource.primary.url, username, password, driver-class-name 등
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Bean&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Primary&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// 여러 DataSource 중 기본(우선순위)으로 사용됨&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@ConfigurationProperties&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">prefix&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;spring.datasource.primary&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">DataSource&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">primaryDataSource&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">DataSourceBuilder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">create&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="na">build&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * primaryEntityManagerFactory: JPA에서 사용할 EntityManagerFactory를 생성.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * - 이 팩토리는 해당 DataSource로 DB 연결을 수행하며,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * - 지정한 Entity 클래스들이 어떤 DB와 연동될지 결정한다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * - &amp;#39;packages()&amp;#39;에 명시된 경로 하위의 Entity 클래스들을 스캔한다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * - persistenceUnit 이름은 구분용이므로 임의로 설정 가능함.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Bean&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Primary&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">LocalContainerEntityManagerFactoryBean&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">primaryEntityManagerFactory&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">EntityManagerFactoryBuilder&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">builder&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">builder&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">dataSource&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">primaryDataSource&lt;/span>&lt;span class="p">())&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// 위에서 만든 DataSource 사용&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">packages&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;com.example.primaryentity&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// JPA Entity 클래스가 위치한 패키지&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">persistenceUnit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;primary&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// persistence-unit 이름 (JPA 설정의 논리적 이름)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">build&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * primaryTransactionManager: 해당 EntityManagerFactory를 사용하는 트랜잭션 관리자 생성.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * - @Transactional 동작 시, 이 트랜잭션 매니저가 사용됨.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * - 하나의 데이터소스에 하나의 트랜잭션 매니저가 대응되어야 함.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Bean&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Primary&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">PlatformTransactionManager&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">primaryTransactionManager&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Qualifier&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;primaryEntityManagerFactory&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">EntityManagerFactory&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">emf&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">JpaTransactionManager&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">emf&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// 해당 EntityManagerFactory에 대한 트랜잭션 관리&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>궁금해서 따로 알아본 내용이며, 실제로 데이터 소스를 여러군대에서 가져와, 활용하는 방식은 보안상에 좋을 순 있지만, 복잡성을 유발하는 것 같아서, 알아만 두자.&lt;/p></description></item></channel></rss>
