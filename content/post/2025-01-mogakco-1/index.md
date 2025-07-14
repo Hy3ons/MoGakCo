@@ -1,6 +1,6 @@
 ---
 title: 하계 모각코 01
-description: 하계 모각코 블로그를 시작하며
+description: 2025년-하계 첫번째 모각코 게시글
 slug: 2025-01-mogakco-1
 date: 2025-07-14 20:45:00+0900
 image: cover.jpg
