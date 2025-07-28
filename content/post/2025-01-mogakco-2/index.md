@@ -69,7 +69,7 @@ handleMethodArgumentNotValid나, handleHttpMessageNotReadable 같은 기본적�
 
 ```java
 @PostMapping("/users")
-public ResponseEntity&lt;User&gt; createUser(@Valid @RequestBody User user) {
+public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
     User savedUser = userRepository.save(user);
     return ResponseEntity.ok(savedUser);
 }
@@ -99,7 +99,7 @@ public class User {
 
 ```java
 @Override
-protected ResponseEntity&lt;Object&gt; handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                               HttpHeaders headers,
                                                               HttpStatusCode status,
                                                               WebRequest request) {
@@ -112,16 +112,16 @@ protected ResponseEntity&lt;Object&gt; handleMethodArgumentNotValid(MethodArgume
 
 ```java
 @Override
-protected ResponseEntity&lt;Object&gt; handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                               HttpHeaders headers,
                                                               HttpStatusCode status,
                                                               WebRequest request) {
     ErrorDetails er = new ErrorDetails(LocalDateTime.now(),
             ex.getFieldErrors().stream()
-              .map(fieldError -&gt; fieldError.getDefaultMessage())
+              .map(fieldError -> fieldError.getDefaultMessage())
               .collect(Collectors.joining(", ")),
             request.getDescription(false));
-    return new ResponseEntity&lt;&gt;(er, HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
 }
 ```
 
